@@ -7,10 +7,10 @@ async function getConnectionLocal(){
     if(poolLocal == undefined || poolLocal == null){
 
         poolLocal = mysql.createPool({
-            host: process.env.HOST_DB || '127.0.0.1',
-            user: process.env.USER_DB || 'luiscasta',
-            password : process.env.PW || '123',
-            database: process.env.NAME_DB || 'bot',
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password : process.env.DB_PW,
+            database: process.env.DB_NAME,
             waitForConnections: true,
             connectionLimit: 30,
             queueLimit: 0
