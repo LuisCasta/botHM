@@ -27,6 +27,30 @@ const GetPrescription = async(data) => {
     })
 }
 
+const GetPrescriptions = async() => {
+    return new Promise(async(resolve,reject) => {
+
+        const query = `SELECT * FROM prescriptions`;
+        
+        
+        await Mysql.executeQuery(query,(result) => {
+
+            let resp = [];
+
+            if(result.status){
+                resp.status = 200;
+                resp.message = "Prescription Exist"
+                resp.data = {data: result.data};
+            }else{
+                resp.status = 400;
+                resp.message = "Error prescription not Exist"
+                resp.data = {data: result.data};
+            }
+            resolve(resp)
+        })
+    })
+}
+
 const ExistPrescription = async(data) => {
     return new Promise(async (resolve,reject) => {
 
@@ -164,6 +188,7 @@ const DeletePrescription = async(data) => {
 
 module.exports = {
     GetPrescription,
+    GetPrescriptions,
     ExistPrescription,
     CreatePrescription,
     UpdatePrescription,

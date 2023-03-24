@@ -8,6 +8,12 @@ module.exports = () => {
         return result;
     }
 
+    async function GetPrescriptions() {
+        let result = await query.GetPrescriptions();
+
+        return result;
+    }
+
     async function CreatePrescription(data) {
         
         let exist_presc = await query.ExistPrescription(data);
@@ -46,6 +52,7 @@ module.exports = () => {
 
     return {
         GetPrescription,
+        GetPrescriptions,
         CreatePrescription,
         UpdatePrescription,
         DeletePrescription
