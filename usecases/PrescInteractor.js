@@ -3,15 +3,15 @@ const query = require('../services/PrescService');
 module.exports = () => {
 
     async function GetPrescription(data) {
-        var result = await query.GetPrescription(data);
+        let result = await query.GetPrescription(data);
 
         return result;
     }
 
     async function CreatePrescription(data) {
         
-        var exist_presc = await query.ExistPrescription(data);
-        var result = []
+        let exist_presc = await query.ExistPrescription(data);
+        let result = []
         if(exist_presc.status == 400){
             result = await query.CreatePrescription(data);
         } else {
@@ -22,8 +22,8 @@ module.exports = () => {
 
     async function UpdatePrescription(data) {
         
-        var getpresc = await query.GetPrescription(data);
-        var result = []
+        let getpresc = await query.GetPrescription(data);
+        let result = []
         if(getpresc.status == 200){
             result = await query.UpdatePrescription(data);
         } else {
@@ -34,8 +34,8 @@ module.exports = () => {
 
     async function DeletePrescription(data) {
         
-        var getpresc = await query.GetPrescription(data);
-        var result = []
+        let getpresc = await query.GetPrescription(data);
+        let result = []
         if(getpresc.status == 200){
             result = await query.DeletePrescription(data);
         } else {

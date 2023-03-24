@@ -31,16 +31,14 @@ module.exports = () => {
         let dateThree = `${fecha_seg_toma}T${hora_seg_toma}}`;
         let dateSecond = moment.utc(dateThree,"DD-MM-YYYYTHH:mm:ss.sssZ")
 
-        console.log(datePlan,' ',dateFirst, ' ', dateSecond)
-
         if(dateFirst > datePlan)
-            res.send("Error, primera toma es mayor al estudio")
+            return res.send("Error, primera toma es mayor al estudio")
 
         if(dateFirst > dateSecond)
-            res.send("Error, primera toma es mayor que la segunda toma")
+            return res.send("Error, primera toma es mayor que la segunda toma")
         
         if(dateSecond > datePlan)
-            res.send("Error, segunda toma mayor que la fecha de estudio")
+            return res.send("Error, segunda toma mayor que la fecha de estudio")
 
         prescInteractor.CreatePrescription(data).then((response) => {
             

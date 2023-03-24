@@ -1,4 +1,5 @@
 const express = require('express');
+const service = require("../services/PrescService")
 
 const PrescController = require('../controllers/PrescController');
 /**

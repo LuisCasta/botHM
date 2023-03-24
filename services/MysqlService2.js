@@ -4,22 +4,32 @@ var poolLocal;
 
 async function getConnectionLocal(){
 
-    if(poolLocal == undefined || poolLocal == null){
+    try {
+        
+        if(poolLocal == undefined || poolLocal == null){
 
-        poolLocal = mysql.createPool({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password : process.env.DB_PW,
-            database: process.env.DB_NAME,
-            waitForConnections: true,
-            connectionLimit: 30,
-            queueLimit: 0
-        });
-        console.log(`no existia una conexión local, se ha creado una nueva conexión`)
-    }else{
-        console.log(`ya existe un conexión local, no crea una nueva`)
+                poolLocal = mysql.createPool({
+                    host: process.env.DB_HOST,
+                    user: process.env.DB_USER,
+                    password : process.env.DB_PW,
+                    database: process.env.DB_NAME,
+                    waitForConnections: true,
+                    connectionLimit: 50,
+                    queueLimit: 0
+                });
+            
+            console.log(`no existia una conexión local, se ha creado una nueva conexión`)
+        }else{
+            console.log(`ya existe un conexión local, no crea una nueva`)
+        }
+        return true;
+
+    } catch (error) {
+        
+        console.log(`Error connection mysql`)
+        return error
     }
-    return true;
+    
     
 
 }

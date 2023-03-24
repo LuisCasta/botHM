@@ -12,14 +12,16 @@ const GetUser = async(data) => {
             
             let resp = [];
 
-            if(result.length > 0){
+            if(result.status){
+
                 resp.status = 200;
                 resp.message = "User Exist"
-                resp.data = {id_user:id_user,rows: result}; 
-            } else {
+                resp.data = {id_user:id_user,rows: result.data};
+            }else{
+
                 resp.status = 400;
                 resp.message = "User not Exist"
-                resp.data = {id_user:id_user, rows: result};
+                resp.data = {id_user:id_user, rows: result.data};
             }
             resolve(resp)
         })
@@ -66,7 +68,7 @@ const CreateUser = async(data) => {
         let pass = data.pass
         let hash = data.hash
         let recordatorio = data.recordatorio
-        let create_at = moment().format('YYYY-MM-DD'); 
+        let create_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
         
         const query = `INSERT INTO users(lada, telefono, estado, ciudad, edad, peso, nombre_medico, apellido_medico,
             pass, hash, recordatorio, create_at) 
@@ -77,18 +79,19 @@ const CreateUser = async(data) => {
             
             let resp = [];
 
-            if(result.affectedRows > 0){
+            if(result.status){
+
                 resp.status = 200;
                 resp.message = "Success"
-                resp.data = {id_user: result.insertId}; //insertId
-            } else {
+                resp.data = {id_user: result.data.insertId};
+            }else{
+
                 resp.status = 400;
                 resp.message = "Insert Error"
-                resp.data = {id_user: result.insertId};
+                resp.data = {id_user: result.data.insertId};
             }
             resolve(resp)
         })
-        
     })
 }
 
@@ -107,7 +110,7 @@ const UpdateUser = async(data) => {
         let pass = data.pass
         let hash = data.hash
         let recordatorio = data.recordatorio
-        let update_at = moment().format('YYYY-MM-DD'); 
+        let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
 
         const query = `UPDATE users SET lada = ${lada}, telefono = ${telefono},
             estado = '${estado}', ciudad = '${ciudad}', edad = ${edad}, peso = '${peso}',
@@ -120,14 +123,16 @@ const UpdateUser = async(data) => {
 
             let resp = [];
 
-            if(result.affectedRows > 0){
+            if(result.status){
+
                 resp.status = 200;
                 resp.message = "User Update"
-                resp.data = {id_user:id_user,rows: result.affectedRows}; 
-            } else {
+                resp.data = {id_user:id_user,rows: result.data};
+            }else{
+
                 resp.status = 400;
                 resp.message = "User not Update"
-                resp.data = {id_user:id_user,rows: result.affectedRows};
+                resp.data = {id_user:id_user,rows: result.data};
             }
             resolve(resp)
         })
@@ -138,27 +143,27 @@ const DeleteUser = async(data) => {
     return new Promise(async (resolve,reject) => {
 
         let id_user = data.id_user
-        let delete_at = moment().format('YYYY-MM-DD');
+        let delete_at = moment().format('YYYY-MM-DDTHH:mm:ss');
 
         const query = `UPDATE users SET delete_at = '${delete_at}' 
             WHERE id = ${id_user}`;
         
-        await Mysql.executeQuery(query,({status,data}) => {
+        await Mysql.executeQuery(query,(result) => {
             
-            if(!status)
-                reject(data)
-
             let resp = [];
-            
-            if(result.affectedRows > 0){
+
+            if(result.status){
+
                 resp.status = 200;
                 resp.message = "User Delete"
-                resp.data = {id_user:id_user,rows: result.affectedRows}; 
-            } else {
+                resp.data = {id_user:id_user,rows: result.data};
+            }else{
+
                 resp.status = 400;
                 resp.message = "User not Delete"
-                resp.data = {id_user:id_user, rows: result.affectedRows};
-            }
+                resp.data = {id_user:id_user, rows: result.data};
+            }   
+            
             resolve(resp)
             
             
