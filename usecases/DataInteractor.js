@@ -1,5 +1,6 @@
 const estados = require('../helpers/estados.json')
 const datos = require('../helpers/municipios.json')
+const parseW = require('../helpers/helperParseWords')
 
 module.exports = () => {
 
@@ -15,8 +16,8 @@ module.exports = () => {
 
     async function GetTown(data) {
         
-
-        let estado = data.estado;
+        let parseState = parseW.parseWordsLower(data.estado)
+        let estado = parseState
         let municipios = datos[estado];
         let result = [];
 
