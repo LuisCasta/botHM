@@ -19,6 +19,21 @@ module.exports = () => {
         })
     }
 
+    const GetUsers = (req, res, next) => {
+
+        userInteractor.GetUsers().then((response) => {
+            
+            let status_r = response.status
+            let message_r = response.message
+            let values = response.data
+
+            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+
+        }, (err) => {
+            return res.status(500).json({error:err});
+        })
+    }
+
     const CreateUser = (req, res, next) => {
 
         const data = req.body;
@@ -70,6 +85,7 @@ module.exports = () => {
 
     return {
         GetUser,
+        GetUsers,
         CreateUser,
         UpdateUser,
         DeleteUser

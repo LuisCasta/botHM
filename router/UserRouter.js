@@ -11,6 +11,8 @@ const UserRouter = () => {
         .post(controller.CreateUser)
         .put(controller.UpdateUser)
         .delete(controller.DeleteUser)
+    router.route('/users')
+        .get(controller.GetUsers)
     return router;
 }
 

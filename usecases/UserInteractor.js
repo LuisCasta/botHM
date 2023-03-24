@@ -8,6 +8,13 @@ module.exports =  () => {
 
         return result;
     } 
+
+    async function GetUsers() {
+
+        let result = await query.GetUsers();
+
+        return result;
+    } 
     
     async function CreateUser(data) {
 
@@ -50,6 +57,7 @@ module.exports =  () => {
 
     return {
         GetUser,
+        GetUsers,
         CreateUser,
         UpdateUser,
         DeleteUser

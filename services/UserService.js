@@ -28,6 +28,33 @@ const GetUser = async(data) => {
     })
 }
 
+const GetUsers = async() => {
+    return new Promise(async (resolve,reject) => {
+
+        const query = `SELECT * FROM users`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+            console.log(result.data)
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "Users"
+                resp.data = {rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "Users not Found"
+                resp.data = {rows: result.data};
+            }
+            resolve(resp)
+        })
+    })
+}
+
+
 const ExistUser = async(data) => {
     return new Promise(async (resolve,reject) => {
 
@@ -175,6 +202,7 @@ const DeleteUser = async(data) => {
 
 module.exports = {
     GetUser,
+    GetUsers,
     ExistUser,
     CreateUser,
     UpdateUser,
