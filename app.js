@@ -10,7 +10,7 @@ const {swaggerDocs : swaggerDocsV1} = require("./router/swagger")
 
 
 const PORT =  process.env.PORT || 3000;
-const HOST = '0.0.0.0';
+const HOST = '127.0.0.1';
 
 app.get('/', function (req, res) {
     res.send('Bienvenidos hmApp')
