@@ -9,7 +9,7 @@ const DataRouter = () => {
     router.route("/estados")
         .get(controller.GetStates)
     router.route("/municipios")
-        .get(controller.GetTown)
+        .post(controller.GetTown)
 
     return router;
 }
