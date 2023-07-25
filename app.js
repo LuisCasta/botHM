@@ -9,7 +9,7 @@ const routes = require('./router/index')
 const {swaggerDocs : swaggerDocsV1} = require("./router/swagger")
 
 
-const PORT =  5000;//process.env.PORT || 5000;
+const PORT =  3000;//process.env.PORT || 5000;
 const HOST = '127.0.0.1';
 
 app.get('/', function (req, res) {
