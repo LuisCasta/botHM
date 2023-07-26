@@ -1,4 +1,6 @@
 const query = require('../services/UserService');
+const catalogo = require("../helpers/catalogKids");
+const prescription = require('../services/PrescService')
 
 module.exports =  () => {
 
@@ -23,6 +25,15 @@ module.exports =  () => {
 
         if(exist_user.status == 400){
             result = await query.CreateUser(data);
+
+            const peso = data.peso;
+            if(peso >=  8.5 && peso <= 10.5)
+                return { user: result, prescription : catalogo.catalogo["1-2"]};
+            if(peso >= 10.6 && peso <= 14.7)
+                return { user: result, prescription : catalogo.catalogo["2-4"]};
+            if(peso >=14.8 && peso <= 28)
+                return { user: result, prescription : catalogo.catalogo["4-9"]};
+
         } else {
             result = exist_user
         }
