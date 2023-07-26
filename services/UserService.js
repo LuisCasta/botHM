@@ -94,13 +94,12 @@ const CreateUser = async(data) => {
         let apellido_medico = data.apellido_medico
         let pass = data.pass
         let hash = data.hash
-        let recordatorio = data.recordatorio
         let create_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
         
         const query = `INSERT INTO users(lada, telefono, estado, ciudad, edad, peso, nombre_medico, apellido_medico,
             pass, hash, recordatorio, created_at) 
             VALUES ('${lada}','${telefono}','${estado}','${ciudad}',${edad},'${peso}','${nombre_medico}','${apellido_medico}',
-                '${pass}','${hash}',${recordatorio},'${create_at}')`;
+                '${pass}','${hash}',0,'${create_at}')`;
         
         await Mysql.executeQuery(query,(result) => {
             
@@ -140,7 +139,6 @@ const UpdateUser = async(data) => {
         let apellido_medico = data.apellido_medico
         let pass = data.pass
         let hash = data.hash
-        let recordatorio = data.recordatorio
         let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
 
         const query = `UPDATE users SET lada = ${lada}, telefono = ${telefono},
