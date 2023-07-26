@@ -98,13 +98,17 @@ const CreateUser = async(data) => {
         let create_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
         
         const query = `INSERT INTO users(lada, telefono, estado, ciudad, edad, peso, nombre_medico, apellido_medico,
-            pass, hash, recordatorio, create_at) 
+            pass, hash, recordatorio, created_at) 
             VALUES ('${lada}','${telefono}','${estado}','${ciudad}',${edad},'${peso}','${nombre_medico}','${apellido_medico}',
                 '${pass}','${hash}',${recordatorio},'${create_at}')`;
         
         await Mysql.executeQuery(query,(result) => {
             
             let resp = [];
+
+            
+            const keys = Object.keys(result)
+            console.log(`resultado ${keys}`)
 
             if(result.status){
 
@@ -115,7 +119,7 @@ const CreateUser = async(data) => {
 
                 resp.status = 400;
                 resp.message = "Insert Error"
-                resp.data = {id_user: result.data.insertId};
+                resp.data = {id_user: result.data};
             }
             resolve(resp)
         })

@@ -8,14 +8,24 @@ async function getConnectionLocal(){
         
         if(poolLocal == undefined || poolLocal == null){
 
+            const hostDB = process.env.DB_HOST;
+            const userDB = process.env.DB_USER;
+            const passwordDB = process.env.DB_PW;
+            const dbNameDB = process.env.DB_NAME;
+            const portDB = process.env.DB_PORT;
+
+            console.log(`host ${hostDB} user ${userDB} pass ${passwordDB} dbname ${dbNameDB}`)
+
                 poolLocal = mysql.createPool({
-                    host: process.env.DB_HOST,
-                    user: process.env.DB_USER,
-                    password : process.env.DB_PW,
-                    database: process.env.DB_NAME,
+                    host: "195.179.237.51",
+                    user: "u584193332_iphonezone",
+                    password : "Tt^GwGxX4=",
+                    port : 3306,
+                    database: "u584193332_iphonezone",
                     waitForConnections: true,
                     connectionLimit: 50,
-                    queueLimit: 0
+                    queueLimit: 0,
+                    idleTimeout: 60000,
                 });
             
             console.log(`no existia una conexión local, se ha creado una nueva conexión`)
@@ -39,17 +49,19 @@ async function executeQuery(queryString,calback){
     
     if(await getConnectionLocal()){
 
-        await poolLocal.getConnection( function(err, connection){
+        console.log(`pool local ${poolLocal}`)
 
-            connection.query(queryString, async function(err, rows, fields) {
+        //await poolLocal.getConnection( function(err, connection){
+
+            poolLocal.query(queryString, async function(err, rows, fields) {
                 
-                connection.release();
+                //connection.release();
 
                 if(err) return calback({'status' : false, 'data':err})
 
                 return calback({'status' : true, 'data':rows})
             })
-        })
+       // })
     }
     
 }
