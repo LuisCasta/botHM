@@ -10,7 +10,7 @@ const {swaggerDocs : swaggerDocsV1} = require("./router/swagger")
 
 
 const PORT =  3000;//process.env.PORT || 5000;
-const HOST = 'https://intestinolimpio.ferringcloud1a.com/backend';
+//const HOST = "localhost"//'https://intestinolimpio.ferringcloud1a.com/backend';
 
 app.get('/', function (req, res) {
     res.send('Bienvenidos hmApp')
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(cors({origin:"*"}))
 app.use("/api/v1", routes());
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT,"http://localhost", () => {
     console.log('Response from server node hm on host '+HOST+' port '+PORT)
     swaggerDocsV1(app,PORT)
 });
