@@ -7,7 +7,14 @@ module.exports =  () => {
     async function GetUser(data) {
 
         let result = await query.GetUser(data);
+        
+        return result;
+    } 
 
+    async function Login(data) {
+
+        let result = await query.GetUserLogin(data);
+        
         return result;
     } 
 

@@ -28,6 +28,32 @@ const GetUser = async(data) => {
     })
 }
 
+const GetUserLogin = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let id_user = data.id_user
+        const query = `SELECT * FROM users where telefono = ${data.phone} AND pass == ${data.password}`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Exist"
+                resp.data = {id_user:id_user,rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Exist"
+                resp.data = {id_user:id_user, rows: result.data};
+            }
+            resolve(resp)
+        })
+    })
+}
+
 const GetUsers = async() => {
     return new Promise(async (resolve,reject) => {
 
@@ -204,6 +230,7 @@ const DeleteUser = async(data) => {
 
 module.exports = {
     GetUser,
+    GetUserLogin,
     GetUsers,
     ExistUser,
     CreateUser,

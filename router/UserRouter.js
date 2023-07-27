@@ -13,6 +13,8 @@ const UserRouter = () => {
         .delete(controller.DeleteUser)
     router.route('/users')
         .get(controller.GetUsers)
+    router.route('/login')
+        .post(controller.Login)
     return router;
 }
 
