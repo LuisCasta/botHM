@@ -15,6 +15,8 @@ const UserRouter = () => {
         .get(controller.GetUsers)
     router.route('/login')
         .post(controller.Login)
+    router.route('/me')
+        .post(controller.GetUser)
     return router;
 }
 
