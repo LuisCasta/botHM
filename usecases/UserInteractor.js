@@ -75,6 +75,7 @@ module.exports =  () => {
 
     return {
         GetUser,
+        Login,
         GetUsers,
         CreateUser,
         UpdateUser,

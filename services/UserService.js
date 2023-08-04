@@ -32,7 +32,7 @@ const GetUserLogin = async(data) => {
     return new Promise(async (resolve,reject) => {
 
         let id_user = data.id_user
-        const query = `SELECT * FROM users where telefono = ${data.phone} AND pass == ${data.password}`;
+        const query = `SELECT * FROM users where telefono = '${data.phone}' AND pass = '${data.password}'`;
         
         await Mysql.executeQuery(query,(result) => {
             
