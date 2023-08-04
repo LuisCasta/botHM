@@ -119,7 +119,7 @@ const CreatePrescription = async(data) => {
 const UpdatePrescription = async(data) => {
     return new Promise(async (resolve,reject) => {
 
-        let id_presc = data.id_presc
+        let id_presc = data.id_prescription
         let fecha_estudio = data.fecha_estudio
         let hora_estudio = data.hora_estudio
         let fecha_prim_toma = data.fecha_prim_toma
