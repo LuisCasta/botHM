@@ -24,6 +24,8 @@ const PrescRouter = () => {
         .delete(controller.DeletePrescription)
     router.route('/prescriptions')
         .get(controller.GetPrescriptions)
+    router.route('/me')
+        .post(controller.GetPrescription)
     return router;
 }
 
