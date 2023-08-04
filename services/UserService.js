@@ -170,8 +170,8 @@ const UpdateUser = async(data) => {
         const query = `UPDATE users SET lada = ${lada}, telefono = ${telefono},
             estado = '${estado}', ciudad = '${ciudad}', edad = ${edad}, peso = '${peso}',
             nombre_medico = '${nombre_medico}', apellido_medico = '${apellido_medico}',
-            pass = '${pass}', hash = '${hash}', recordatorio = ${recordatorio},
-            update_at = '${update_at}'
+            pass = '${pass}',
+            updated_at = '${update_at}'
             WHERE id = ${id_user}`;
 
         await Mysql.executeQuery(query,(result) => {
