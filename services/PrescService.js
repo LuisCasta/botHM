@@ -4,7 +4,7 @@ const moment = require('moment');
 const GetPrescription = async(data) => {
     return new Promise(async(resolve,reject) => {
 
-        let id_presc = data.id_presc;
+        let id_presc = data.id_prescription;
         const query = `SELECT * FROM prescriptions 
             WHERE id = ${id_presc}`;
         
