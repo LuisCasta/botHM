@@ -65,6 +65,21 @@ module.exports = () => {
         })
     }
 
+    const GetPrescriptionDetails = (req, res, next) => {
+
+        const data = req.body;
+        userInteractor.GetPrescriptionDetails(data).then((response) => {
+
+            let status_r = 200;
+            let message_r = "Success prescription details"
+            let values = response.prescription
+
+            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+        }, (err) => {
+            return res.status(500).json({error:err});
+        })
+    }
+
     const UpdateUser = (req, res, next) => {
 
         const data = req.body;
@@ -105,6 +120,7 @@ module.exports = () => {
         GetUsers,
         CreateUser,
         UpdateUser,
-        DeleteUser
+        DeleteUser,
+        GetPrescriptionDetails
     }
 };

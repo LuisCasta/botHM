@@ -17,6 +17,8 @@ const UserRouter = () => {
         .post(controller.Login)
     router.route('/me')
         .post(controller.GetUser)
+    router.route('/prescriptionDetails')
+        .post(controller.GetPrescriptionDetails)
     return router;
 }
 
