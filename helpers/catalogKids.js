@@ -6,7 +6,7 @@ const catalogo = {
             detalles : "Diluye 1 cucharada sopera de Picoprep en 50 mil de agua."
         },
         hidratacion1 : {
-            indicacion : "50ml",
+            indicacion : "250ml",
             detalles : "Es hora de tomar un vasito con agua."
         },
         dosis2 : {
@@ -14,7 +14,7 @@ const catalogo = {
             detalles : "Diluye 1 cucharada sopera de Picoprep en 50 mil de agua."
         },
         hidratacion2 : {
-            indicacion : "50mil",
+            indicacion : "250mil",
             detalles : "Es hora de tomar un vasito con agua."
         }
     },
@@ -25,7 +25,7 @@ const catalogo = {
             detalles : "Diluye 2 cucharada sopera de Picoprep en 100 mil de agua."
         },
         hidratacion1 : {
-            indicacion : "100ml",
+            indicacion : "250ml",
             detalles : "Es hora de tomar un vasito con agua."
         },
         dosis2 : {
@@ -33,7 +33,7 @@ const catalogo = {
             detalles : "Diluye 2 cucharadaa sopera de Picoprep en 100 mil de agua."
         },
         hidratacion2 : {
-            indicacion : "100mil",
+            indicacion : "250mil",
             detalles : "Es hora de tomar un vasito con agua."
         }
     },
@@ -44,7 +44,7 @@ const catalogo = {
             detalles : "Diluye 1 sobre de Picoprep en 150 mil de agua"
         },
         hidratacion1 : {
-            indicacion : "150ml",
+            indicacion : "250ml",
             detalles : "Es hora de tomar un vasito con agua."
         },
         dosis2 : {
@@ -52,7 +52,7 @@ const catalogo = {
             detalles : "Diluye 2 cucharadas sopera de Picoprep en 100 mil de agua."
         },
         hidratacion2 : {
-            indicacion : "150mil",
+            indicacion : "250mil",
             detalles : "Es hora de tomar un vasito con agua."
         }
     },
@@ -63,7 +63,7 @@ const catalogo = {
             detalles : "Diluye 1 sobre de Picoprep en 150 mil de agua"
         },
         hidratacion1 : {
-            indicacion : "150ml",
+            indicacion : "250ml",
             detalles : "Es hora de tomar un vasito con agua."
         },
         dosis2 : {
@@ -71,7 +71,7 @@ const catalogo = {
             detalles : "Diluye 1 sobre de Picoprep en 150 mil de agua"
         },
         hidratacion2 : {
-            indicacion : "150mil",
+            indicacion : "250mil",
             detalles : "Es hora de tomar un vasito con agua."
         }
     },

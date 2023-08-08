@@ -10,6 +10,10 @@ const DataRouter = () => {
         .get(controller.GetStates)
     router.route("/municipios")
         .post(controller.GetTown)
+    router.route("/provincia")
+        .get(controller.GetProvincias)
+    router.route("/canton")
+        .post(controller.GetCanton)
 
     return router;
 }
