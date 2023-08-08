@@ -119,23 +119,27 @@ const CreatePrescription = async(data) => {
 const UpdatePrescription = async(data) => {
     return new Promise(async (resolve,reject) => {
 
-        let id_presc = data.id_prescription
+        let id_presc      = data.id_prescription
         let fecha_estudio = data.fecha_estudio
-        let hora_estudio = data.hora_estudio
+        let hora_estudio  = data.hora_estudio
         let fecha_prim_toma = data.fecha_prim_toma
-        let hora_prim_toma = data.hora_prim_toma
-        let fecha_seg_toma = data.fecha_seg_toma
-        let hora_seg_toma = data.hora_seg_toma
+        let hora_prim_toma  = data.hora_prim_toma
+        let fecha_seg_toma  = data.fecha_seg_toma
+        let hora_seg_toma   = data.hora_seg_toma
         let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
         
         const query = `UPDATE prescriptions SET fecha_estudio = '${fecha_estudio}', hora_estudio ='${hora_estudio}',
             fecha_prim_toma = '${fecha_prim_toma}', hora_prim_toma = '${hora_prim_toma}',
-            fecha_seg_toma = '${fecha_seg_toma}', hora_seg_toma = '${hora_seg_toma}', update_at = '${update_at}'
+            fecha_seg_toma = '${fecha_seg_toma}', hora_seg_toma = '${hora_seg_toma}', updated_at = '${update_at}'
             WHERE id = ${id_presc}`; 
         
         await Mysql.executeQuery(query,(result) => {
 
             console.log(`Result ${result}`)
+            console.log(`Result Status ${result.data}`)
+
+            const keys = Object.keys(result)
+            console.log(`Key ${keys}`)
             let resp = [];
 
             if(result.status){
