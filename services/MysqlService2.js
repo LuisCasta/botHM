@@ -14,8 +14,6 @@ async function getConnectionLocal(){
             const dbNameDB = process.env.DB_NAME;
             const portDB = process.env.DB_PORT;
 
-            console.log(`host ${hostDB} user ${userDB} pass ${passwordDB} dbname ${dbNameDB}`)
-
                 poolLocal = mysql.createPool({
                     host: "195.179.237.51",
                     user: "u584193332_iphonezone",

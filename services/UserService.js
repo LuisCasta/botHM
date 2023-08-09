@@ -120,12 +120,13 @@ const CreateUser = async(data) => {
         let apellido_medico = data.apellido_medico
         let pass = data.pass
         let hash = data.hash
+        let country = data.country;
         let create_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
         
         const query = `INSERT INTO users(lada, telefono, estado, ciudad, edad, peso, nombre_medico, apellido_medico,
-            pass, hash, recordatorio, created_at) 
+            pass, hash, country, recordatorio, created_at) 
             VALUES ('${lada}','${telefono}','${estado}','${ciudad}',${edad},'${peso}','${nombre_medico}','${apellido_medico}',
-                '${pass}','${hash}',0,'${create_at}')`;
+                '${pass}','${hash}','${country}',0,'${create_at}')`;
         
         await Mysql.executeQuery(query,(result) => {
             
@@ -133,7 +134,6 @@ const CreateUser = async(data) => {
 
             
             const keys = Object.keys(result)
-            console.log(`resultado ${keys}`)
 
             if(result.status){
 
@@ -146,6 +146,8 @@ const CreateUser = async(data) => {
                 resp.message = "Insert Error"
                 resp.data = {id_user: result.data};
             }
+
+
             resolve(resp)
         })
     })
@@ -161,16 +163,16 @@ const UpdateUser = async(data) => {
         let ciudad = data.ciudad
         let edad = data.edad
         let peso = data.peso
-        let nombre_medico = data.nombre_medico
+        let nombre_medico   = data.nombre_medico
         let apellido_medico = data.apellido_medico
-        let pass = data.pass
-        let hash = data.hash
+        let pass    = data.pass
+        let country = data.country
         let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
 
         const query = `UPDATE users SET lada = ${lada}, telefono = ${telefono},
             estado = '${estado}', ciudad = '${ciudad}', edad = ${edad}, peso = '${peso}',
             nombre_medico = '${nombre_medico}', apellido_medico = '${apellido_medico}',
-            pass = '${pass}',
+            pass = '${pass}', country = '${country}',
             updated_at = '${update_at}'
             WHERE id = ${id_user}`;
 
@@ -189,6 +191,7 @@ const UpdateUser = async(data) => {
                 resp.message = "User not Update"
                 resp.data = {id_user:id_user,rows: result.data};
             }
+
             resolve(resp)
         })
     })

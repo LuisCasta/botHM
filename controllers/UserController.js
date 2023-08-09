@@ -55,10 +55,10 @@ module.exports = () => {
         const data = req.body;
         userInteractor.CreateUser(data).then((response) => {
 
-            let status_r = response.status
-            let message_r = response.message
-            let values = response.data
-
+            
+            let status_r = response.user.status
+            let message_r = response.user.message
+            let values = response.user.data
             return res.status(status_r).json({status:status_r,message:message_r,data:values})
         }, (err) => {
             return res.status(500).json({error:err});
