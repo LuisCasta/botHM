@@ -81,6 +81,27 @@ module.exports = () => {
 
     const DeletePrescription = (req, res, next) => {
         const data = req.body
+
+        let {fecha_estudio, hora_estudio, fecha_prim_toma, hora_prim_toma, fecha_seg_toma, hora_seg_toma} = data;
+        
+        let dateOne = `${fecha_estudio}T${hora_estudio}}`;
+        let datePlan = moment.utc(dateOne,"DD-MM-YYYYTHH:mm:ss.sssZ")
+
+        let dateTwo = `${fecha_prim_toma}T${hora_prim_toma}}`;
+        let dateFirst = moment.utc(dateTwo,"DD-MM-YYYYTHH:mm:ss.sssZ")
+
+        let dateThree = `${fecha_seg_toma}T${hora_seg_toma}}`;
+        let dateSecond = moment.utc(dateThree,"DD-MM-YYYYTHH:mm:ss.sssZ")
+
+        if(dateFirst > datePlan)
+            return res.send("Error, primera toma es mayor al estudio")
+
+        if(dateFirst > dateSecond)
+            return res.send("Error, primera toma es mayor que la segunda toma")
+        
+        if(dateSecond > datePlan)
+            return res.send("Error, segunda toma mayor que la fecha de estudio")
+        
         prescInteractor.DeletePrescription(data).then((response) => {
             
             let status_r = response.status
