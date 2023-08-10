@@ -68,19 +68,6 @@ module.exports = () => {
 
     const UpdatePrescription = (req, res, next) => {
         const data = req.body
-        prescInteractor.UpdatePrescription(data).then((response) => {
-            
-            let status_r = response.status
-            let message_r = response.message
-            let values = response.data
-            return res.status(status_r).json({status:status_r,message:message_r,data:values})
-        }, (err) => {
-            return res.status(500).json({error:err});
-        })
-    }
-
-    const DeletePrescription = (req, res, next) => {
-        const data = req.body
 
         let {fecha_estudio, hora_estudio, fecha_prim_toma, hora_prim_toma, fecha_seg_toma, hora_seg_toma} = data;
         
@@ -101,6 +88,20 @@ module.exports = () => {
         
         if(dateSecond > datePlan)
             return res.send("Error, segunda toma mayor que la fecha de estudio")
+        
+        prescInteractor.UpdatePrescription(data).then((response) => {
+            
+            let status_r = response.status
+            let message_r = response.message
+            let values = response.data
+            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+        }, (err) => {
+            return res.status(500).json({error:err});
+        })
+    }
+
+    const DeletePrescription = (req, res, next) => {
+        const data = req.body
         
         prescInteractor.DeletePrescription(data).then((response) => {
             
