@@ -1,7 +1,9 @@
-const UserInteractor = require('../usecases/UserInteractor');
+const UserInteractor  = require('../usecases/UserInteractor');
+const PrescInteractor = require('../usecases/PrescInteractor');
 
 module.exports = () => {
     const userInteractor = UserInteractor();
+    const prescInteractor = PrescInteractor();
 
     const GetUser = (req, res, next) => {
 
@@ -22,13 +24,17 @@ module.exports = () => {
     const Login = (req, res, next) => {
 
         const data = req.body
-        userInteractor.Login(data).then((response) => {
-            
-            let status_r = response.status
-            let message_r = response.message
-            let values = response.data
 
-            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+        userInteractor.Login(data).then(async (responses) => {
+            
+            let response = responses.result
+            let respons2 = responses.result2;
+
+            let status_r    = response.status
+            let message_r   = response.message
+            let values      = response.data
+
+            return res.status(status_r).json({status:status_r,message:message_r,data:values, prescription : respons2})
 
         }, (err) => {
             return res.status(500).json({error:err});

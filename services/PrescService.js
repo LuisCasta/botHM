@@ -27,6 +27,33 @@ const GetPrescription = async(data) => {
     })
 }
 
+const GetPrescriptionsById = async(data) => {
+    return new Promise(async(resolve,reject) => {
+
+        let id = data
+        const query = `SELECT * FROM prescriptions WHERE id_user = '${id}' ORDER BY id DESC LIMIT 1`;
+        
+        await Mysql.executeQuery(query,(result) => {
+
+            console.log(`Entra a mysql ${result}`)
+
+            const keys = Object.keys(result)
+            console.log(keys+result.data)
+            let resp = [];
+
+            if(result.status){
+
+                resolve({status : 200, data: result.data[0]})
+            }else{
+                resolve({status : 400, data: result.data})
+            }
+
+            //console.log(`RESPONSE ${res}`)
+            resolve(result.data)
+        })
+    })
+}
+
 const GetPrescriptions = async() => {
     return new Promise(async(resolve,reject) => {
 
@@ -193,6 +220,7 @@ const DeletePrescription = async(data) => {
 module.exports = {
     GetPrescription,
     GetPrescriptions,
+    GetPrescriptionsById,
     ExistPrescription,
     CreatePrescription,
     UpdatePrescription,

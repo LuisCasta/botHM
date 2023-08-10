@@ -38,8 +38,9 @@ const GetUserLogin = async(data) => {
             
             let resp = [];
 
-            if(result.status){
+            if(result.status && result.data.length > 0){
 
+                console.log(`result data ${result.status}`)
                 resp.status = 200;
                 resp.message = "User Exist"
                 resp.data = {id_user:id_user,rows: result.data};
@@ -174,7 +175,7 @@ const UpdateUser = async(data) => {
         const query = `UPDATE users SET lada = ${lada}, telefono = ${telefono},
             estado = '${estado}', ciudad = '${ciudad}', edad = ${edad}, peso = '${peso}',
             nombre_medico = '${nombre_medico}', apellido_medico = '${apellido_medico}',
-            pass = '${pass}', country = '${country}', ,'${recordatorio}'
+            pass = '${pass}', country = '${country}', recordatorio = '${recordatorio}',
             updated_at = '${update_at}'
             WHERE id = ${id_user}`;
 

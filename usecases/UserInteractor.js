@@ -14,8 +14,14 @@ module.exports =  () => {
     async function Login(data) {
 
         let result = await query.GetUserLogin(data);
-        
-        return result;
+        console.log(`Satus ${result.status}`)
+        if(result.status == 400)    
+            return {result, error: 400};
+
+        let id = result['data'].rows[0].id
+
+        let result2 = await prescription.GetPrescriptionsById(id)
+        return {result, result2};
     } 
 
     async function GetUsers() {

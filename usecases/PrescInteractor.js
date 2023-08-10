@@ -14,6 +14,12 @@ module.exports = () => {
         return result;
     }
 
+    async function GetPrescriptionsById(id) {
+        let result = await query.GetPrescriptionsById(id);
+
+        return result;
+    }
+
     async function CreatePrescription(data) {
         
         let exist_presc = await query.ExistPrescription(data);
@@ -53,6 +59,7 @@ module.exports = () => {
     return {
         GetPrescription,
         GetPrescriptions,
+        GetPrescriptionsById,
         CreatePrescription,
         UpdatePrescription,
         DeletePrescription
