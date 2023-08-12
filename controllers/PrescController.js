@@ -44,6 +44,11 @@ module.exports = () => {
         let dateThree = `${fecha_seg_toma}T${hora_seg_toma}}`;
         let dateSecond = moment.utc(dateThree,"DD-MM-YYYYTHH:mm:ss.sssZ")
 
+        const now = moment();
+        console.log(`Ahora ${now} Plan ${datePlan}`)
+        if(datePlan < now)
+            return res.send("Error, la fecha del estudio no puede ser menor a la fecha de hoy.")
+
         if(dateFirst > datePlan)
             return res.send("Error, primera toma es mayor al estudio")
 
@@ -53,6 +58,14 @@ module.exports = () => {
         if(dateSecond > datePlan)
             return res.send("Error, segunda toma mayor que la fecha de estudio")
 
+
+        const diffTime = datePlan.diff(dateSecond, 'hours', true); // devolverá 1,75
+
+        if(diffTime < 6){
+            console.log( moment.duration(datePlan - dateSecond).humanize() + ' between meals' )
+            return res.send("Error, no hay suficiente tiempo entre la segunda toma y el estudio, al menos debe existir 6 horas de diferencia.")
+        }
+        
         prescInteractor.CreatePrescription(data).then((response) => {
             
             
@@ -80,6 +93,11 @@ module.exports = () => {
         let dateThree = `${fecha_seg_toma}T${hora_seg_toma}}`;
         let dateSecond = moment.utc(dateThree,"DD-MM-YYYYTHH:mm:ss.sssZ")
 
+        const now = moment();
+        console.log(`Ahora ${now} Plan ${datePlan}`)
+        if(datePlan < now)
+            return res.send("Error, la fecha del estudio no puede ser menor a la fecha de hoy.")
+
         if(dateFirst > datePlan)
             return res.send("Error, primera toma es mayor al estudio")
 
@@ -88,6 +106,14 @@ module.exports = () => {
         
         if(dateSecond > datePlan)
             return res.send("Error, segunda toma mayor que la fecha de estudio")
+
+
+        const diffTime = datePlan.diff(dateSecond, 'hours', true); // devolverá 1,75
+
+        if(diffTime < 6){
+            console.log( moment.duration(datePlan - dateSecond).humanize() + ' between meals' )
+            return res.send("Error, no hay suficiente tiempo entre la segunda toma y el estudio, al menos debe existir 6 horas de diferencia.")
+        }
         
         prescInteractor.UpdatePrescription(data).then((response) => {
             
