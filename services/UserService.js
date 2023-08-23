@@ -1,5 +1,7 @@
 const Mysql = require('./MysqlService2');
 const moment = require('moment');
+const axios = require('axios');
+
 
 
 const GetUser = async(data) => {
@@ -232,6 +234,66 @@ const DeleteUser = async(data) => {
     })
 }
 
+const SendWhatsapp = async() => {
+    console.log(`Into send wh`)
+
+    /*const resultado = await axios({
+        method: 'get',
+        url: 'https://api.landbot.io/',
+        responseType: 'json',
+        headers: {
+            'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+            'Content-Type' : 'application/json'
+        },
+    });*/
+
+    const resultado2 = await axios({
+        method: 'post',
+        url: 'https://api.landbot.io/v1/customers/296883243/send_template/',
+        //responseType: 'json',
+        headers: {
+            'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+            'Content-Type' : 'application/json'
+        },
+        data : {
+            "template_id": 3010,
+            "template_params": {
+                /*"header": { // Required only for templates with header
+                    "url": "https://...." // For type image or document
+                    "params": ["patata", "congrio"] // For type text
+                },*/
+                /*"body": { // Required
+                    "params": ["Peter", "Landbot"]
+                },
+                "buttons": [ // Required only for templates with buttons
+                    null, // If button it's a quick_reply
+                    { // If button it's a url
+                        "params": ["img.jpg"]
+                    }
+                ]*/
+            },
+            "template_language": "en",
+        }
+    });
+
+    return resultado2;
+
+    /*axios({
+        method: 'get',
+        url: 'https://api.landbot.io/',
+        responseType: 'json',
+        headers: {
+            'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+            'Content-Type' : 'application/json'
+        },
+    })
+    .then(function (response) {
+
+        console.log(`Response ${response}`)
+        //response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+    });*/
+}
+
 
 
 module.exports = {
@@ -241,5 +303,6 @@ module.exports = {
     ExistUser,
     CreateUser,
     UpdateUser,
-    DeleteUser
+    DeleteUser,
+    SendWhatsapp
 };

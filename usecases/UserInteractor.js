@@ -92,7 +92,16 @@ module.exports =  () => {
             result = getuser
         }
         return result;
-    } 
+    }
+    
+    async function SendWhatsapp() {
+        
+        let result = []
+        console.log("send3")
+        result = await query.SendWhatsapp();
+        console.log(`result ${result}`)
+        return result;
+    }
 
     return {
         GetUser,
@@ -101,6 +110,7 @@ module.exports =  () => {
         CreateUser,
         UpdateUser,
         DeleteUser,
-        GetPrescriptionDetails
+        GetPrescriptionDetails,
+        SendWhatsapp
     }
 };

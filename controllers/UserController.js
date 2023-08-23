@@ -120,6 +120,23 @@ module.exports = () => {
         })
     }
 
+    const SendWhatsapp = ( req, res ) => {
+
+        
+        console.log(`Send whatsapp`)
+        userInteractor.SendWhatsapp().then((response) => {
+            
+            let status_r = response.status
+            let message_r = response.message
+            let values = response.data
+            
+            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+
+        }, (err) => {
+            return res.status(500).json({error:err});
+        })
+    }
+
     return {
         GetUser,
         Login,
@@ -127,6 +144,7 @@ module.exports = () => {
         CreateUser,
         UpdateUser,
         DeleteUser,
-        GetPrescriptionDetails
+        GetPrescriptionDetails,
+        SendWhatsapp
     }
 };

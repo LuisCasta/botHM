@@ -19,6 +19,8 @@ const UserRouter = () => {
         .post(controller.GetUser)
     router.route('/prescriptionDetails')
         .post(controller.GetPrescriptionDetails)
+    router.route('/sendWhatsapp')
+        .get(controller.SendWhatsapp)
     return router;
 }
 
