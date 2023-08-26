@@ -130,7 +130,14 @@ const CreatePrescription = async(data) => {
             if(result.status){
                 resp.status = 200;
                 resp.message = "Success Create prescription"
-                resp.data = {id_prescription: result.data.insertId};
+                resp.data = { 
+                    id_prescription: result.data.insertId,
+                    fecha_prim_toma, 
+                    hora_prim_toma,
+                    fecha_seg_toma,
+                    hora_seg_toma,
+                    id_user
+                };
             }else{
                 resp.status = 400;
                 resp.message = "Error Create prescription"
@@ -140,6 +147,76 @@ const CreatePrescription = async(data) => {
             resolve(resp)
         })
         
+    })
+}
+
+
+const createTomas = async (data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let { id_user, fecha, mensaje } = data;
+
+        console.log(`Fecha ${fecha}`)
+
+        let fechaParse = moment(fecha).format("YYYY-MM-DDTHH:mm:ss")
+        console.log("************************************")
+        console.log(fechaParse)
+        const query = `INSERT INTO tomas(id_user, fecha, mensaje, estatus) 
+            VALUES ('${id_user}','${fechaParse}','${mensaje}', ${1})`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "Success"
+                resp.data = {id_toma: result.data.insertId, id_user};
+            }else{
+                console.log(`***********************Error*****************`)
+                console.log(result)
+                resp.status = 400;
+                resp.message = "Insert Error"
+                resp.data = {id_user: result.data};
+            }
+
+
+            resolve(resp)
+        })
+    })
+}
+
+const UpdateToma = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let { id_toma } = data;
+
+        let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
+
+        const query = `UPDATE toma SET estatus = ${0},
+            updated_at = '${update_at}'
+            WHERE id = ${id_toma}`;
+
+        await Mysql.executeQuery(query,(result) => {
+
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Update"
+                resp.data = {id_toma,rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Update"
+                resp.data = {id_toma,rows: result.data};
+            }
+
+            resolve(resp)
+        })
     })
 }
 
@@ -224,5 +301,6 @@ module.exports = {
     ExistPrescription,
     CreatePrescription,
     UpdatePrescription,
-    DeletePrescription
+    DeletePrescription,
+    createTomas
 };

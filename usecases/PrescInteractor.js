@@ -26,9 +26,21 @@ module.exports = () => {
         let result = []
         if(exist_presc.status == 400){
             result = await query.CreatePrescription(data);
+            let { id_prescription } = await result;
+            console.log(`Result prescripcion ${id_prescription}`);
         } else {
             result = exist_presc
         }
+
+        return result;
+    }
+
+    async function createTomas(data) {
+        
+        
+        let result = []
+        result = await query.createTomas(data);
+
         return result;
     }
 
@@ -62,6 +74,7 @@ module.exports = () => {
         GetPrescriptionsById,
         CreatePrescription,
         UpdatePrescription,
-        DeletePrescription
+        DeletePrescription,
+        createTomas
     }
 }

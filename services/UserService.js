@@ -249,7 +249,7 @@ const SendWhatsapp = async() => {
 
     const resultado2 = await axios({
         method: 'post',
-        url: 'https://api.landbot.io/v1/customers/296883243/send_template/',
+        url: 'https://api.landbot.io/v1/customers/297652403/send_template/',
         //responseType: 'json',
         headers: {
             'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
@@ -258,23 +258,41 @@ const SendWhatsapp = async() => {
         data : {
             "template_id": 3010,
             "template_params": {
-                /*"header": { // Required only for templates with header
-                    "url": "https://...." // For type image or document
-                    "params": ["patata", "congrio"] // For type text
-                },*/
-                /*"body": { // Required
-                    "params": ["Peter", "Landbot"]
-                },
-                "buttons": [ // Required only for templates with buttons
-                    null, // If button it's a quick_reply
-                    { // If button it's a url
-                        "params": ["img.jpg"]
-                    }
-                ]*/
+                "body": {
+                    "params": []
+                }
             },
-            "template_language": "en",
+            "template_language": "en"
         }
     });
+    /*
+    const resultado2 = await axios({
+        method: 'post',
+        url: 'https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+5218714353747',
+        //responseType: 'json',
+        headers: {
+            'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+            'Content-Type' : 'application/json'
+        },
+        data : {
+            custom_params: {
+                "header": {
+                    "params": ["Prueba"]
+                },
+                "body": { 
+                    "params": ["Prueba"]
+                }
+            },
+            template_params: {
+                "header": {
+                    "params": ["Prueba"]
+                },
+                "body": { 
+                    "params": ["Prueba"]
+                }
+            },
+        }        
+    });*/
 
     return resultado2;
 
