@@ -56,7 +56,7 @@ module.exports = () => {
             return res.send("Error, primera toma es mayor que la segunda toma")
         
         if(dateSecond > datePlan)
-            return res.send("Error, segunda toma mayor que la fecha de estudio")
+            return res.send("Error, la segunda toma es posterior a la fecha del estudio.")
 
 
         const diffTime = datePlan.diff(dateSecond, 'hours', true); // devolverá 1,75
@@ -159,7 +159,7 @@ module.exports = () => {
             return res.send("Error, primera toma es mayor que la segunda toma")
         
         if(dateSecond > datePlan)
-            return res.send("Error, segunda toma mayor que la fecha de estudio")
+            return res.send("Error, la segunda toma es posterior a la fecha del estudio")
 
 
         const diffTime = datePlan.diff(dateSecond, 'hours', true); // devolverá 1,75
