@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.use(cors({origin:"*"}))
-app.use("/api/v1", routes());
+app.use("/node/api/v1", routes());
 
 app.listen(PORT, HOST, () => {
     console.log(`Response from server node hm on host ${HOST} port `+PORT)

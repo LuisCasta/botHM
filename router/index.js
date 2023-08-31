@@ -273,7 +273,7 @@ const apiRouter = () => {
      *                    type: object
      *
      */
-    routes.use("/node/user",userRouter);
+    routes.use("/user",userRouter);
     /**
      * @openapi
      * /api/v1/prescription:
@@ -521,7 +521,7 @@ const apiRouter = () => {
      *                    type: object
      *
      */
-    routes.use("/node/prescription",prescRouter);
+    routes.use("/prescription",prescRouter);
     /**
      * @openapi
      * /api/v1/data/estados:
@@ -601,7 +601,7 @@ const apiRouter = () => {
      *                    type: object
      *
      */
-    routes.use("/node/data",dataRouter);
+    routes.use("/data",dataRouter);
 
     return routes;
 };
