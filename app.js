@@ -13,6 +13,10 @@ app.get('/node', function (req, res) {
     res.send('Bienvenidos hmApp')
 })
 
+app.get('*', (req, res) => {
+    res.sendFile( __dirname + '/public/index.html' )
+})
+
 app.get('/node/test', async function (req, res) {
 
     const resultado2 = await axios({
