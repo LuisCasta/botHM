@@ -35,7 +35,7 @@ app.get('/node/test', async function (req, res) {
 
 
 var job = new CronJob(
-    '00 * * * *',
+    '* 1/1 * * *',
     async function() {
         console.log('You will see this message every second');
 
@@ -55,7 +55,7 @@ var job = new CronJob(
 
                         await axios({
                             method: 'post',
-                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
                             //responseType: 'json',
                             headers: {
                                 'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
@@ -66,7 +66,7 @@ var job = new CronJob(
 
                         await axios({
                             method: 'post',
-                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
                             //responseType: 'json',
                             headers: {
                                 'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',

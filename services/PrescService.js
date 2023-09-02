@@ -227,7 +227,7 @@ const GetToma = async(data) => {
     return new Promise(async (resolve,reject) => {
 
         let now = moment().utc().subtract(6,'h').format('YYYY-MM-DDTHH:mm:ss'); 
-        let to  = moment().utc().add(1,'h').subtract(6,'h').format('YYYY-MM-DDTHH:mm:ss'); 
+        let to  = moment().utc().add(1,'m').subtract(6,'h').format('YYYY-MM-DDTHH:mm:ss'); 
 
         console.log(`From ${now}`)
         console.log(`To ${to}`)
