@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios');
-//var CronJob = require('cron').CronJob;
+var CronJob = require('cron').CronJob;
 const app = express()
 const routes = require('./router/index')
 const {swaggerDocs : swaggerDocsV1} = require("./router/swagger");
@@ -34,7 +34,7 @@ app.get('/node/test', async function (req, res) {
 })
 
 
-/*var job = new CronJob(
+var job = new CronJob(
     '00 * * * *',
     async function() {
         console.log('You will see this message every second');
@@ -46,15 +46,33 @@ app.get('/node/test', async function (req, res) {
 
         if(datos.length > 0){
 
-            datos.forEach(h => {
+            datos.forEach(async h => {
                 console.log(`Hidratación ${h.phone} ${h.peso} ${h.estatus} ${h.mensaje}`)
 
                 if(h.peso >= 28){
 
                     if(h.mensaje == '1' || h.mensaje == '2'){
-                        //template hidratacion_mayores 
+
+                        await axios({
+                            method: 'post',
+                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            //responseType: 'json',
+                            headers: {
+                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                'Content-Type' : 'application/json'
+                            }
+                        });
                     }else if(h.mensaje == '3'){
-                        //template tomas mayores
+
+                        await axios({
+                            method: 'post',
+                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            //responseType: 'json',
+                            headers: {
+                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                'Content-Type' : 'application/json'
+                            }
+                        });
                     }else{
                         console.log(`Mensaje inválido`)
                     }
@@ -69,7 +87,7 @@ app.get('/node/test', async function (req, res) {
     null,
     true,   
     'America/Mexico_City'
-);*/
+);
 
 
 app.use(bodyParser.urlencoded({extended:true}));
