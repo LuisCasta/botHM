@@ -80,54 +80,42 @@ module.exports = () => {
             let aux2 = values.fecha_seg_toma.split('-')
             let newAux2 = `${aux2[2]}-${aux2[1]}-${aux2[0]}`
 
-            console.log(`/////////// ${values.fecha_prim_toma} & ${values.hora_prim_toma}`)
             let dateTwo = `${newAux1}T${values.hora_prim_toma}}`;
             let t1 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ")
-            console.log(`/////////// ${values.fecha_seg_toma} & ${values.hora_seg_toma}`)
+
+            let h1 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ").add(1,'h')
+
+            let h2 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ").add(2,'h')
+
+            let h3 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ").add(3,'h')
+
+            let h4 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ").add(4,'h')
+
+            let h5 = moment.utc(dateTwo,"YYYY-MM-DDTHH:mm:ss.sssZ").add(5,'h')
+
             let dateThree = `${newAux2}T${values.hora_seg_toma}}`;
             let t2 = moment.utc(dateThree,"YYYY-MM-DDTHH:mm:ss.sssZ")
 
-            console.log(`t1 ${t1}`)
-            let h1 = t1.add(1, 'h');
-            console.log(`h1 ${h1}`)
-            let h2 = h1.add(1, 'h');
-            console.log(`h2 ${h2}`)
-            let h3 = h2.add(1, 'h');
-            console.log(`h2 ${h3}`)
-            let h4 = h3.add(1, 'h');
-            let h5 = h4.add(1, 'h');
-            console.log(`t2 ${t2}`)
-            let h6 = h5.add(1,'h');
-            console.log(`h6 ${h6}`)
-            let h7 = h6.add(1,'h');
-            let h8 = h7.add(1,'h');
+            let h6 = moment.utc(dateThree,"YYYY-MM-DDTHH:mm:ss.sssZ").add(1,'h')
 
-            //const allH = [ h1, h2, h3 , h4, h5, h6, h7, h8];
+            let h7 = moment.utc(dateThree,"YYYY-MM-DDTHH:mm:ss.sssZ").add(2,'h')
 
-            await prescInteractor.createTomas({id_user, fecha : h1, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h2, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h3, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h4, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h5, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h6, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h7, mensaje : "test"});
-            await prescInteractor.createTomas({id_user, fecha : h8, mensaje : "test"});
-            
-            //let count = 0;
+            let h8 = moment.utc(dateThree,"YYYY-MM-DDTHH:mm:ss.sssZ").add(3,'h')
 
-            /*allH.forEach(async h => {
 
-                let params = {
-                    id_user,
-                    fecha : h,
-                    mensaje : "test"
-                }
+            await prescInteractor.createTomas({id_user, fecha : h1, mensaje : "1", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h2, mensaje : "1", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h3, mensaje : "1", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h4, mensaje : "1", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h5, mensaje : "1", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h6, mensaje : "2", toma : 2, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h7, mensaje : "2", toma : 2, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : h8, mensaje : "2", toma : 2, peso : values.peso, phone : values.phone});
 
-                let resultTomas = await prescInteractor.createTomas(params);
-                console.log(`Resultado de hidratacion ${h} => ${resultTomas}`)
-            }) */           
+            await prescInteractor.createTomas({id_user, fecha : t1, mensaje : "3", toma : 1, peso : values.peso, phone : values.phone});
+            await prescInteractor.createTomas({id_user, fecha : t2, mensaje : "3", toma : 2, peso : values.peso, phone : values.phone});         
 
-            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+            return res.status(status_r).json({status:status_r,message:message_r,data:values,tomas : {h1,h2,h3,h4,h5,h6,h7,h8}})
         }, (err) => {
             return res.status(500).json({error:err});
         })

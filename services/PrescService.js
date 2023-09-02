@@ -83,7 +83,6 @@ const ExistPrescription = async(data) => {
 
         let fecha_estudio = data.fecha_estudio
         let hora_estudio = data.hora_estudio
-
         const query = `SELECT * FROM prescriptions 
             WHERE fecha_estudio = '${fecha_estudio}' and hora_estudio = '${hora_estudio}'`;
 
@@ -115,6 +114,8 @@ const CreatePrescription = async(data) => {
         let hora_prim_toma = data.hora_prim_toma
         let fecha_seg_toma = data.fecha_seg_toma
         let hora_seg_toma = data.hora_seg_toma
+        let peso = data.peso
+        let phone = data.phone
         let create_at = moment().format('YYYY-MM-DDTHH:mm:ss');
 
         const query = `INSERT INTO prescriptions(id_user, fecha_estudio, hora_estudio, 
@@ -136,7 +137,9 @@ const CreatePrescription = async(data) => {
                     hora_prim_toma,
                     fecha_seg_toma,
                     hora_seg_toma,
-                    id_user
+                    id_user,
+                    peso,
+                    phone
                 };
             }else{
                 resp.status = 400;
@@ -154,15 +157,15 @@ const CreatePrescription = async(data) => {
 const createTomas = async (data) => {
     return new Promise(async (resolve,reject) => {
 
-        let { id_user, fecha, mensaje } = data;
+        let { id_user, fecha, mensaje, toma, peso, phone } = data;
 
         console.log(`Fecha ${fecha}`)
 
         let fechaParse = moment(fecha).format("YYYY-MM-DDTHH:mm:ss")
         console.log("************************************")
         console.log(fechaParse)
-        const query = `INSERT INTO tomas(id_user, fecha, mensaje, estatus) 
-            VALUES ('${id_user}','${fechaParse}','${mensaje}', ${1})`;
+        const query = `INSERT INTO tomas(id_user, fecha, mensaje, toma, peso, phone, estatus) 
+            VALUES ('${id_user}','${fechaParse}','${mensaje}','${toma}','${peso}', '${phone}', '${1}')`;
         
         await Mysql.executeQuery(query,(result) => {
             
@@ -173,7 +176,7 @@ const createTomas = async (data) => {
 
                 resp.status = 200;
                 resp.message = "Success"
-                resp.data = {id_toma: result.data.insertId, id_user};
+                resp.data = {id_toma: result.data.insertId, id_user, peso};
             }else{
                 console.log(`***********************Error*****************`)
                 console.log(result)
@@ -213,6 +216,38 @@ const UpdateToma = async(data) => {
                 resp.status = 400;
                 resp.message = "User not Update"
                 resp.data = {id_toma,rows: result.data};
+            }
+
+            resolve(resp)
+        })
+    })
+}
+
+const GetToma = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let now = moment().utc().subtract(6,'h').format('YYYY-MM-DDTHH:mm:ss'); 
+        let to  = moment().utc().add(1,'h').subtract(6,'h').format('YYYY-MM-DDTHH:mm:ss'); 
+
+        console.log(`From ${now}`)
+        console.log(`To ${to}`)
+
+        const query = `SELECT * FROM tomas WHERE fecha BETWEEN '${now}' AND '${to}' `;
+
+        await Mysql.executeQuery(query,(result) => {
+
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Update"
+                resp.data = {rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Update"
+                resp.data = {rows: result.data};
             }
 
             resolve(resp)
@@ -302,5 +337,6 @@ module.exports = {
     CreatePrescription,
     UpdatePrescription,
     DeletePrescription,
-    createTomas
+    createTomas,
+    GetToma
 };
