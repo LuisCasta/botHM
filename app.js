@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios');
-//var CronJob = require('cron').CronJob;
+var CronJob = require('cron').CronJob;
 const app = express()
 const routes = require('./router/index')
 const {swaggerDocs : swaggerDocsV1} = require("./router/swagger");
@@ -34,7 +34,7 @@ app.get('/node/test', async function (req, res) {
 })
 
 
-/*var job = new CronJob(
+var job = new CronJob(
     '* 1/1 * * *',
     async function() {
         console.log('You will see this message every second');
@@ -87,7 +87,7 @@ app.get('/node/test', async function (req, res) {
     null,
     true,   
     'America/Mexico_City'
-);*/
+);
 
 
 app.use(bodyParser.urlencoded({extended:true}));
