@@ -33,7 +33,7 @@ app.get('/node/test', async function (req, res) {
     }
 })
 
-/*
+
 var job = new CronJob(
     '* 1/1 * * *',
     async function() {
@@ -48,38 +48,188 @@ var job = new CronJob(
 
             datos.forEach(async h => {
                 console.log(`Hidratación ${h.phone} ${h.peso} ${h.estatus} ${h.mensaje}`)
+                // para mayores de 28kg
+                if(h.peso > 28){
 
-                if(h.peso >= 28){
-
+                    //es hidratación
                     if(h.mensaje == '1' || h.mensaje == '2'){
-
+                    
                         await axios({
                             method: 'post',
-                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            url: `https://messages.landbot.io/wa/W-1834-ENG2U8ONAI1FSCH4/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
                             //responseType: 'json',
                             headers: {
                                 'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
                                 'Content-Type' : 'application/json'
                             }
                         });
+                    //es toma    
                     }else if(h.mensaje == '3'){
 
-                        await axios({
-                            method: 'post',
-                            url: `https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
-                            //responseType: 'json',
-                            headers: {
-                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
-                                'Content-Type' : 'application/json'
-                            }
-                        });
+                        //es la primera toma
+                        if(h.toma == '1'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1837-E7SB0W6Y8IMILB2F/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        //es la segunda toma
+                        }else if(h.toma == '2'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1837-E7SB0W6Y8IMILB2F/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        }
+                        
                     }else{
                         console.log(`Mensaje inválido`)
                     }
+                }else if(h.peso >= 8.5  && h.peso < 10.6){
+
+                    //es hidratación
+                    if(h.mensaje == '1' || h.mensaje == '2'){
+                    
+                        await axios({
+                            method: 'post',
+                            url: `https://messages.landbot.io/wa/W-1834-ENG2U8ONAI1FSCH4/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            //responseType: 'json',
+                            headers: {
+                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                'Content-Type' : 'application/json'
+                            }
+                        });
+                    //es toma    
+                    }else if(h.mensaje == '3'){
+
+                        //es la primera toma
+                        if(h.toma == '1'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1835-4UNHUVE8CQ8FEWEB/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        //es la segunda toma
+                        }else if(h.toma == '2'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1835-4UNHUVE8CQ8FEWEB/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        }
+                        
+                    }else{
+                        console.log(`Mensaje inválido`)
+                    }
+                }else if(h.peso >= 10.6  && h.peso < 14.8){
+
+                    //es hidratación
+                    if(h.mensaje == '1' || h.mensaje == '2'){
+                    
+                        await axios({
+                            method: 'post',
+                            url: `https://messages.landbot.io/wa/W-1834-ENG2U8ONAI1FSCH4/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            //responseType: 'json',
+                            headers: {
+                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                'Content-Type' : 'application/json'
+                            }
+                        });
+                    //es toma    
+                    }else if(h.mensaje == '3'){
+
+                        //es la primera toma
+                        if(h.toma == '1'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1836-OHUHG5H103DE2BIL/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        //es la segunda toma
+                        }else if(h.toma == '2'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1836-OHUHG5H103DE2BIL/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        }
+                        
+                    }else{
+                        console.log(`Mensaje inválido`)
+                    }
+                }else if(h.peso >= 14.8  && h.peso < 29){
+                    
+                    //es hidratación
+                    if(h.mensaje == '1' || h.mensaje == '2'){
+                    
+                        await axios({
+                            method: 'post',
+                            url: `https://messages.landbot.io/wa/W-1834-ENG2U8ONAI1FSCH4/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                            //responseType: 'json',
+                            headers: {
+                                'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                'Content-Type' : 'application/json'
+                            }
+                        });
+                    //es toma    
+                    }else if(h.mensaje == '3'){
+
+                        //es la primera toma
+                        if(h.toma == '1'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1837-E7SB0W6Y8IMILB2F/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        //es la segunda toma
+                        }else if(h.toma == '2'){
+                            await axios({
+                                method: 'post',
+                                url: `https://messages.landbot.io/wa/W-1836-OHUHG5H103DE2BIL/opt_in?phone=+52${h.phone}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                                //responseType: 'json',
+                                headers: {
+                                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                                    'Content-Type' : 'application/json'
+                                }
+                            });
+                        }
+                        
+                    }else{
+                        console.log(`Mensaje inválido`)
+                    }
+                }else{
+                    console.log(`Peso no válido`)
                 }
+
             });
-
-
         }else{
             console.log(`No hay notificaciones por enviar`)
         }
@@ -87,7 +237,7 @@ var job = new CronJob(
     null,
     true,   
     'America/Mexico_City'
-);*/
+);
 
 
 app.use(bodyParser.urlencoded({extended:true}));
