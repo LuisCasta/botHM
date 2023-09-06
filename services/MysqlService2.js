@@ -15,11 +15,11 @@ async function getConnectionLocal(){
             const portDB = process.env.DB_PORT;
 
                 poolLocal = mysql.createPool({
-                    host: "195.179.237.51",
-                    user: "u584193332_iphonezone",
-                    password : "Tt^GwGxX4=",
+                    host: "localhost",//"195.179.237.51",
+                    user: "intestinolimpio_prod",//"u584193332_iphonezone",
+                    password : "IntestinoProd7",//"Tt^GwGxX4=",
                     port : 3306,
-                    database: "u584193332_iphonezone",
+                    database: "intestinolimpio_prod",//"u584193332_iphonezone",
                     waitForConnections: true,
                     connectionLimit: 50,
                     queueLimit: 0,
