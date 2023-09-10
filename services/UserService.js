@@ -136,8 +136,6 @@ const CreateUser = async(data) => {
             
             let resp = [];
 
-            
-            const keys = Object.keys(result)
 
             if(result.status){
 
@@ -312,6 +310,95 @@ const SendWhatsapp = async() => {
     });*/
 }
 
+const CreateOtp = async(phone, otp) => {
+
+    return new Promise(async (resolve,reject) => {
+
+        
+        let create_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
+        
+        const query = `INSERT INTO otp( phone, otp, created_at) 
+            VALUES ('${phone}','${otp}','${create_at}')`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "Success"
+                resp.data = {id_otp: result.data.insertId};
+            }else{
+
+                resp.status = 400;
+                resp.message = "Insert Error"
+                resp.data = {phone};
+            }
+
+
+            resolve(resp)
+        })
+    })
+}
+
+const GetOtp = async( otp ) => {
+
+    return new Promise(async (resolve,reject) => {
+        
+        const query = `SELECT * FROM otp WHERE otp = '${otp}'`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "Success"
+                resp.data = {id_otp: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "Insert Error"
+                resp.data = {otp};
+            }
+
+
+            resolve(resp)
+        })
+    })
+}
+
+const UpdatePassword = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        const { phone, password } = data;
+        let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
+
+        const query = `UPDATE users SET pass = '${password}', updated_at = '${update_at}'
+            WHERE telefono = ${phone}`;
+
+        await Mysql.executeQuery(query,(result) => {
+
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Update"
+                resp.data = {phone,rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Update"
+                resp.data = {phone,rows: result.data};
+            }
+
+            resolve(resp)
+        })
+    })
+}
 
 
 module.exports = {
@@ -322,5 +409,8 @@ module.exports = {
     CreateUser,
     UpdateUser,
     DeleteUser,
-    SendWhatsapp
+    SendWhatsapp,
+    CreateOtp,
+    GetOtp,
+    UpdatePassword
 };

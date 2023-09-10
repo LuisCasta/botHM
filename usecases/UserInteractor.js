@@ -2,6 +2,7 @@ const query = require('../services/UserService');
 const catalogo = require("../helpers/catalogKids");
 const prescription = require('../services/PrescService')
 
+
 module.exports =  () => {
 
     async function GetUser(data) {
@@ -54,6 +55,25 @@ module.exports =  () => {
         }
         return result;
     } 
+
+    async function CreateOtp(data) {
+
+        const { phone , otp } = data;
+
+        return await query.CreateOtp(phone, otp);
+    }
+
+    async function GetOtp(data) {
+
+        const { otp } = data;
+
+        return await query.GetOtp( otp );
+    }
+
+    async function UpdatePassword(data) {
+
+        return await query.UpdatePassword( data );
+    }
 
     async function GetPrescriptionDetails(data) {
 
@@ -111,6 +131,9 @@ module.exports =  () => {
         UpdateUser,
         DeleteUser,
         GetPrescriptionDetails,
-        SendWhatsapp
+        SendWhatsapp,
+        CreateOtp,
+        GetOtp,
+        UpdatePassword
     }
 };
