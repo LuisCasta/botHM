@@ -33,7 +33,7 @@ app.get('/node/test', async function (req, res) {
     }
 })
 
-
+/*
 var job = new CronJob(
     '* 1/1 * * *',
     async function() {
@@ -237,7 +237,7 @@ var job = new CronJob(
     null,
     true,   
     'America/Mexico_City'
-);
+);*/
 
 
 app.use(bodyParser.urlencoded({extended:true}));
