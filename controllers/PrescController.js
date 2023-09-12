@@ -74,6 +74,8 @@ module.exports = () => {
 
             let id_user = values.id_user;
 
+            console.log(`response createPrescription ${values}`)
+            console.log(`fecha_prim_toma ${values.fecha_prim_toma}`)
             let aux = values.fecha_prim_toma.split('-')
             let newAux1 = `${aux[2]}-${aux[1]}-${aux[0]}`
 
