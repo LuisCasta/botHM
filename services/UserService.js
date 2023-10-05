@@ -30,6 +30,34 @@ const GetUser = async(data) => {
     })
 }
 
+const GetUserByPhone = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let phone = data.phone
+        const query = `SELECT * FROM users where telefono = '${phone}'`;
+        
+        await Mysql.executeQuery(query,(result) => {
+            
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Exist"
+
+                //console.log(`resuuuult ${Object.keys(result.data[0]) }`)
+                resp.data = {phone,rows: result.data[0]};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Exist"
+                resp.data = {phone, rows: result.data};
+            }
+            resolve(resp)
+        })
+    })
+}
+
 const GetUserLogin = async(data) => {
     return new Promise(async (resolve,reject) => {
 
@@ -155,6 +183,38 @@ const CreateUser = async(data) => {
     })
 }
 
+const UpdateLandbotId = async(data) => {
+    return new Promise(async (resolve,reject) => {
+
+        let landbotId = data.landbotId
+        let id_user = data.id_user
+        let update_at = moment().format('YYYY-MM-DDTHH:mm:ss'); 
+
+        const query = `UPDATE users SET landbot_id = ${landbotId},
+            updated_at = '${update_at}'
+            WHERE id = ${id_user}`;
+
+        await Mysql.executeQuery(query,(result) => {
+
+            let resp = [];
+
+            if(result.status){
+
+                resp.status = 200;
+                resp.message = "User Update"
+                resp.data = {id_user:id_user,rows: result.data};
+            }else{
+
+                resp.status = 400;
+                resp.message = "User not Update"
+                resp.data = {id_user:id_user,rows: result.data};
+            }
+
+            resolve(resp)
+        })
+    })
+}
+
 const UpdateUser = async(data) => {
     return new Promise(async (resolve,reject) => {
 
@@ -232,7 +292,7 @@ const DeleteUser = async(data) => {
     })
 }
 
-const SendWhatsapp = async() => {
+const SendWhatsapp = async(customer, code) => {
     console.log(`Into send wh`)
 
     /*const resultado = await axios({
@@ -247,20 +307,23 @@ const SendWhatsapp = async() => {
 
     const resultado2 = await axios({
         method: 'post',
-        url: 'https://api.landbot.io/v1/customers/297652403/send_template/',
+        url: `https://api.landbot.io/v1/customers/${customer}/send_template/`,
         //responseType: 'json',
         headers: {
-            'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+            'Authorization': 'Token 86d929431f2643afe43a932a370eac7e7695450b',
             'Content-Type' : 'application/json'
         },
         data : {
-            "template_id": 3010,
-            "template_params": {
-                "body": {
-                    "params": []
-                }
-            },
-            "template_language": "en"
+               "template_id": 12170,
+               "template_params": {
+                  "header" : {},
+                  "body": {
+                     "params": [
+                        `${code}`
+                     ]
+                  }
+               },
+               "template_language": "es_MX"
         }
     });
     /*
@@ -403,11 +466,13 @@ const UpdatePassword = async(data) => {
 
 module.exports = {
     GetUser,
+    GetUserByPhone,
     GetUserLogin,
     GetUsers,
     ExistUser,
     CreateUser,
     UpdateUser,
+    UpdateLandbotId,
     DeleteUser,
     SendWhatsapp,
     CreateOtp,

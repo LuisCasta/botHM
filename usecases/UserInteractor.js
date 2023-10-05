@@ -12,6 +12,13 @@ module.exports =  () => {
         return result;
     } 
 
+    async function GetUserByPhone(data) {
+
+        let result = await query.GetUserByPhone(data);
+        
+        return result;
+    } 
+
     async function Login(data) {
 
         let result = await query.GetUserLogin(data);
@@ -75,6 +82,11 @@ module.exports =  () => {
         return await query.UpdatePassword( data );
     }
 
+    async function UpdateLandbotId(data) {
+
+        return await query.UpdateLandbotId( data );
+    }
+
     async function GetPrescriptionDetails(data) {
 
         const peso = data.peso;
@@ -114,17 +126,18 @@ module.exports =  () => {
         return result;
     }
     
-    async function SendWhatsapp() {
+    async function SendWhatsapp(customer, code) {
         
         let result = []
         console.log("send3")
-        result = await query.SendWhatsapp();
+        result = await query.SendWhatsapp(customer, code);
         console.log(`result ${result}`)
         return result;
     }
 
     return {
         GetUser,
+        GetUserByPhone,
         Login,
         GetUsers,
         CreateUser,
@@ -134,6 +147,7 @@ module.exports =  () => {
         SendWhatsapp,
         CreateOtp,
         GetOtp,
-        UpdatePassword
+        UpdatePassword,
+        UpdateLandbotId
     }
 };

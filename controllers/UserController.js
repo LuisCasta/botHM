@@ -25,6 +25,22 @@ module.exports = () => {
         })
     }
 
+    const GetUserByPhone = (req, res, next) => {
+
+        const data = req.body
+        userInteractor.GetUser(data).then((response) => {
+            
+            let status_r = response.status
+            let message_r = response.message
+            let values = response.data
+
+            return res.status(status_r).json({status:status_r,message:message_r,data:values})
+
+        }, (err) => {
+            return res.status(500).json({error:err});
+        })
+    }
+
     const Login = (req, res, next) => {
 
         const data = req.body
@@ -72,14 +88,29 @@ module.exports = () => {
             if(status_r == 200){
 
                 const phone = data.telefono;
-                await axios({
+                const opt_in = await axios({
                     method: 'post',
                     url: `https://messages.landbot.io/wa/W-1840-G81XFAOLNX64HKRR/opt_in?phone=${phone}`,
                     headers: {
-                        'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                        'Authorization': 'Token 86d929431f2643afe43a932a370eac7e7695450b',
                         'Content-Type' : 'application/json'
                     }
                 });
+
+                console.log(`opt in customer ${ opt_in.data.customer.id }`)
+
+                const asign = await axios({
+                    method: 'put',
+                    url: `https://api.landbot.io/v1/customers/${opt_in.data.customer.id}/unassign/`,
+                    headers: {
+                        'Authorization': 'Token 86d929431f2643afe43a932a370eac7e7695450b',
+                        'Content-Type' : 'application/json'
+                    }
+                });
+                
+
+                const statusLandbot = await userInteractor.UpdateLandbotId({id_user: values.id_user,  landbotId : opt_in.data.customer.id})
+
             }
 
             return res.status(status_r).json({status:status_r,message:message_r,data:values})
@@ -158,15 +189,24 @@ module.exports = () => {
 
         const { phone } = req.body;
 
-        //const otp = "123455";
         const otp = otpGenerator.generate(8, { upperCaseAlphabets: false, specialChars: false });
 
-        userInteractor.CreateOtp({phone, otp}).then((response) => {
+        userInteractor.CreateOtp({phone, otp}).then(async (response) => {
             
             let status_r    = response.status
-            let message_r   = response.message
+            let statusSend ="";
+
+            console.log(`phoneeee ${phone}`)
+            const idCustomer = await userInteractor.GetUserByPhone({phone})
+
+            const id = idCustomer.data.rows.landbot_id;
+            console.log( `idCustomer ${id}` )
+
+            if(status_r == 200)
+               statusSend  = await userInteractor.SendWhatsapp(id,otp)
+
             
-            return res.status(status_r).json({status:200,message:message_r,data:otp})
+            return res.status(status_r).json({status:200,message:`send otp Success`,statusSend,data:otp})
 
         }, (err) => {
             return res.status(500).json({error:err});
