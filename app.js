@@ -16,10 +16,28 @@ app.get('/node', function (req, res) {
 
 app.get('/node/test', async function (req, res) {
 
-    const resultado2 = await axios({
+    await axios({
+                method: 'post',
+                url: `https://messages.landbot.io/wa/W-1834-ENG2U8ONAI1FSCH4/opt_in?phone=+52${8714353747}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                //responseType: 'json',
+                headers: {
+                    'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                    'Content-Type' : 'application/json'
+                }
+            });
+            await axios({
+                    method: 'post',
+                    url: `https://messages.landbot.io/wa/W-1837-E7SB0W6Y8IMILB2F/opt_in?phone=+52${8714353747}`,//'https://api.landbot.io/v1/customers/297652403/send_template/',
+                    //responseType: 'json',
+                    headers: {
+                        'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
+                        'Content-Type' : 'application/json'
+                    }
+                });
+
+    /*const resultado2 = await axios({
         method: 'post',
         url: "https://messages.landbot.io/wa/W-1818-YLSJCP6KP6OF6WQ0/opt_in?phone=+528714353747",//'https://api.landbot.io/v1/customers/297652403/send_template/',
-        //responseType: 'json',
         headers: {
             'Authorization': 'Token 5046a0bf7add2c578e59ac8713fff7fe8300a589',
             'Content-Type' : 'application/json'
@@ -30,10 +48,10 @@ app.get('/node/test', async function (req, res) {
         res.send({estatus:"success"})
     }else{
         res.send({estatus:"error"})
-    }
+    }*/
 })
 
-/*
+
 var job = new CronJob(
     '* 1/1 * * *',
     async function() {
@@ -237,7 +255,7 @@ var job = new CronJob(
     null,
     true,   
     'America/Mexico_City'
-);*/
+);
 
 
 app.use(bodyParser.urlencoded({extended:true}));
