@@ -206,7 +206,7 @@ module.exports = () => {
                statusSend  = await userInteractor.SendWhatsapp(id,otp)
 
             
-            return res.status(status_r).json({status:200,message:`send otp Success`,statusSend,data:otp})
+            return res.status(status_r).json({status:200,message:`send otp Success`,data:otp})
 
         }, (err) => {
             return res.status(500).json({error:err});
