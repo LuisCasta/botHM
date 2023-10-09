@@ -295,6 +295,36 @@ const DeleteUser = async(data) => {
 const SendWhatsapp = async(customer, code) => {
     console.log(`Into send wh`)
 
+    try{
+
+        const resultado2 = await axios({
+            method: 'post',
+            url: `https://api.landbot.io/v1/customers/${customer}/send_template/`,
+            //responseType: 'json',
+            headers: {
+                'Authorization': 'Token 86d929431f2643afe43a932a370eac7e7695450b',
+                'Content-Type' : 'application/json'
+            },
+            data : {
+                   "template_id": 12170,
+                   "template_params": {
+                      "header" : {},
+                      "body": {
+                         "params": [
+                            `${code}`
+                         ]
+                      }
+                   },
+                   "template_language": "es_MX"
+            }
+        });
+
+        return resultado2;
+
+    }catch(error){
+        return error;
+    }
+
     /*const resultado = await axios({
         method: 'get',
         url: 'https://api.landbot.io/',
@@ -305,27 +335,7 @@ const SendWhatsapp = async(customer, code) => {
         },
     });*/
 
-    const resultado2 = await axios({
-        method: 'post',
-        url: `https://api.landbot.io/v1/customers/${customer}/send_template/`,
-        //responseType: 'json',
-        headers: {
-            'Authorization': 'Token 86d929431f2643afe43a932a370eac7e7695450b',
-            'Content-Type' : 'application/json'
-        },
-        data : {
-               "template_id": 12170,
-               "template_params": {
-                  "header" : {},
-                  "body": {
-                     "params": [
-                        `${code}`
-                     ]
-                  }
-               },
-               "template_language": "es_MX"
-        }
-    });
+    
     /*
     const resultado2 = await axios({
         method: 'post',
@@ -355,7 +365,7 @@ const SendWhatsapp = async(customer, code) => {
         }        
     });*/
 
-    return resultado2;
+    
 
     /*axios({
         method: 'get',
